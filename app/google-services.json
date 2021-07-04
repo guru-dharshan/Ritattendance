@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "594440755804",
+    "firebase_url": "https://ritattendance-55eb5-default-rtdb.firebaseio.com",
+    "project_id": "ritattendance-55eb5",
+    "storage_bucket": "ritattendance-55eb5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:594440755804:android:4a97f008ccc1bf65822499",
+        "android_client_info": {
+          "package_name": "com.devgd.attendancev1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "594440755804-1hk545a8ts5hri3tlgksknral91bu5md.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCq_E_R39gJv58c5jZ6wommVXsJvkwzZlk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "594440755804-1hk545a8ts5hri3tlgksknral91bu5md.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
