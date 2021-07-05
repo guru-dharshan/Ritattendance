@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,7 @@ public class NameListActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     FirebaseDatabase database;
     DatabaseReference reference;
+    ProgressBar progressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,6 +57,7 @@ public class NameListActivity extends AppCompatActivity {
         semester=findViewById(R.id.namelistsem);
         database=FirebaseDatabase.getInstance();
         sharedPreferences=this.getPreferences(MODE_PRIVATE);
+        progressBar=findViewById(R.id.progressBar);
         Intent intent=getIntent();
         batch=intent.getStringExtra("batch");
         dept=intent.getStringExtra("dep");
@@ -152,19 +155,28 @@ public class NameListActivity extends AppCompatActivity {
                firestore.collection(date).document(String.valueOf(modelClass.getRegno())).set(attendance).addOnSuccessListener(new OnSuccessListener<Void>() {
                    @Override
                    public void onSuccess(Void unused) {
-                       Toast.makeText(NameListActivity.this, "Attendance Uploaded", Toast.LENGTH_SHORT).show();
+                       //Toast.makeText(NameListActivity.this, "Attendance Uploaded", Toast.LENGTH_SHORT).show();
+                        progressBar.setVisibility(View.VISIBLE);
                    }
                });
-               Log.i("heyyy first time","ueeeee");
             }
+            Log.i("heyyy first time","ueeeee");
+            progressBar.setVisibility(View.GONE);
+
         }
         else{
             for (int i = 0; i <nameList.size();i++) {
                 AttendanceModelClass modelClass = nameList.get(i);
                 String h = "h" + hr;
-                firestore.collection(date).document(String.valueOf(modelClass.getRegno())).update(h, String.valueOf(attendanceStatus.get(i)));
-                Toast.makeText(this, "Attendance Updated", Toast.LENGTH_SHORT).show();
+                firestore.collection(date).document(String.valueOf(modelClass.getRegno())).update(h, String.valueOf(attendanceStatus.get(i))).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        progressBar.setVisibility(View.VISIBLE);
+                    }
+                });
             }
+            Log.i("heyyy first time","ueeeee");
+            progressBar.setVisibility(View.GONE);
         }
     }
 }

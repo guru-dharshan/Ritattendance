@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
     TextView oddind,evenind;
     RadioButton b1,b2;
     DatePickerDialog datePickerDialog;
-    ArrayAdapter deptadapter, secadapter, houradapter;
+    ArrayAdapter deptadapter, secadapter, houradapter, updatedDepAdapter,updatedSecAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,22 +58,41 @@ public class MainActivity extends AppCompatActivity {
         String[] depts = { "CSE", "Mechanical", "ECE", "EEE"};
         String[] secs = { "A", "B", "C"};
         String[] hours = { "1", "2", "3","4","5","6","7"};
+        String[] upDep = { "CSE", "Mechanical", "ECE", "EEE","CCE","B TECH AI & DS"};
+        String[] upSec = { "A", "B", "C","D","E","F","G","H"};
 
        deptadapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,depts);
         secadapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,secs);
         houradapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,hours);
+        updatedDepAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,upDep);
+        updatedSecAdapter = new ArrayAdapter(this,android.R.layout.simple_spinner_item,upSec);
 
         deptadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         secadapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         houradapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+        hour.setAdapter(houradapter);
         dept.setAdapter(deptadapter);
         sec.setAdapter(secadapter);
-        hour.setAdapter(houradapter);
 
+        batch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
 
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if(!batch.getText().toString().equals("")) {
+                    setAdapter(batch.getText().toString());
+                }
+            }
+        });
 
         acayear.addTextChangedListener(new TextWatcher() {
             @Override
@@ -169,5 +188,20 @@ public class MainActivity extends AppCompatActivity {
             }
         },Calendar.getInstance().get(Calendar.YEAR),Calendar.getInstance().get(Calendar.MONDAY),Calendar.getInstance().get(Calendar.DAY_OF_MONTH));
         datePickerDialog.show();
+    }
+
+    public void setAdapter(String Batch){
+        if(Batch.compareTo("2019")>0){
+            sec.setAdapter(updatedSecAdapter);
+        }
+        else {
+            sec.setAdapter(secadapter);
+        }
+        if(Batch.compareTo("2019")>0){
+            dept.setAdapter(updatedDepAdapter);
+        }
+        else {
+            dept.setAdapter(deptadapter);
+        }
     }
 }
