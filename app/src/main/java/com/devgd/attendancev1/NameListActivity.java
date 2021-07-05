@@ -138,7 +138,8 @@ public class NameListActivity extends AppCompatActivity {
     }
 
     public void upload(View view) {
-        if(sharedPreferences.getString("first",null)==null) {
+       // if(sharedPreferences.getString("first",null)==null) {
+        if(hr.equals("1")) {
             SharedPreferences.Editor editor=sharedPreferences.edit();
             editor.putString("first","1");
             editor.apply();
@@ -148,9 +149,13 @@ public class NameListActivity extends AppCompatActivity {
                AttendanceModelClass attendance=new AttendanceModelClass(modelClass.getRegno(),modelClass.getPhno(),modelClass.getName(),
                        modelClass.getSec(),sem,dept,year,String.valueOf(attendanceStatus.get(i)),
                        " "," "," "," "," "," ");
-               firestore.collection(date).document(String.valueOf(modelClass.getRegno())).set(attendance);
+               firestore.collection(date).document(String.valueOf(modelClass.getRegno())).set(attendance).addOnSuccessListener(new OnSuccessListener<Void>() {
+                   @Override
+                   public void onSuccess(Void unused) {
+                       Toast.makeText(NameListActivity.this, "Attendance Uploaded", Toast.LENGTH_SHORT).show();
+                   }
+               });
                Log.i("heyyy first time","ueeeee");
-                Toast.makeText(this, "Attendance Uploaded", Toast.LENGTH_SHORT).show();
             }
         }
         else{
