@@ -2,6 +2,7 @@ package com.devgd.attendancev1;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,7 +15,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -43,6 +46,8 @@ public class NameListActivity extends AppCompatActivity {
     FirebaseDatabase database;
     DatabaseReference reference;
     ProgressBar progressBar;
+    CardView layout;
+    int count=0,i;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +63,7 @@ public class NameListActivity extends AppCompatActivity {
         database=FirebaseDatabase.getInstance();
         sharedPreferences=this.getPreferences(MODE_PRIVATE);
         progressBar=findViewById(R.id.progressBar);
+        layout=findViewById(R.id.layout);
         Intent intent=getIntent();
         batch=intent.getStringExtra("batch");
         dept=intent.getStringExtra("dep");
@@ -147,7 +153,7 @@ public class NameListActivity extends AppCompatActivity {
             editor.putString("first","1");
             editor.apply();
             firsttime++;
-            for (int i = 0; i <nameList.size();i++){
+            for (i = 0; i <nameList.size();i++){
                 AttendanceModelClass modelClass=nameList.get(i);
                AttendanceModelClass attendance=new AttendanceModelClass(modelClass.getRegno(),modelClass.getPhno(),modelClass.getName(),
                        modelClass.getSec(),sem,dept,year,String.valueOf(attendanceStatus.get(i)),
@@ -157,11 +163,19 @@ public class NameListActivity extends AppCompatActivity {
                    public void onSuccess(Void unused) {
                        //Toast.makeText(NameListActivity.this, "Attendance Uploaded", Toast.LENGTH_SHORT).show();
                         progressBar.setVisibility(View.VISIBLE);
+                        layout.setAlpha((float) 0.5);
+                        count++;
+                       if(i==nameList.size()-1){
+                           progressBar.setVisibility(View.GONE);
+                           layout.setAlpha(1);
+                       }
                    }
                });
+
+
             }
             Log.i("heyyy first time","ueeeee");
-            progressBar.setVisibility(View.GONE);
+
 
         }
         else{
