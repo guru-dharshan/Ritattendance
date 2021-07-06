@@ -40,7 +40,7 @@ public class Login extends AppCompatActivity {
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull @org.jetbrains.annotations.NotNull Exception e) {
-                Toast.makeText(Login.this, "please enter the valid credi", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Login.this, "please enter the valid credential", Toast.LENGTH_SHORT).show();
 
             }
         });
