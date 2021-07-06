@@ -121,7 +121,7 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
         // in which we will be passing our pageWidth,
         // pageHeight and number of pages and after that
         // we are calling it to create our PDF.
-        PdfDocument.PageInfo mypageInfo = new PdfDocument.PageInfo.Builder(pagewidth, pageHeight, 2).create();
+        PdfDocument.PageInfo mypageInfo = new PdfDocument.PageInfo.Builder(pagewidth, pageHeight, 1).create();
 
         // below line is used for setting
         // start page for our PDF file.
@@ -176,111 +176,178 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
         canvas.drawText("H5", 320, 50, title);
         canvas.drawText("H6", 350, 50, title);
         canvas.drawText("H7", 380, 50, title);
-        for (int i=0;i<nameList.size();i++) {
+        for (int i=0;i<35;i++) {
             canvas.drawText(nameList.get(i).getName(), 20, disbtnstd, title);
 
-            if(getAttendance(nameList.get(i).getH1()).equals("P")){
+            if (getAttendance(nameList.get(i).getH1()).equals("P")) {
                 title.setColor(ContextCompat.getColor(this, R.color.present));
-            }
-            else if(getAttendance(nameList.get(i).getH1()).equals("A")){
+            } else if (getAttendance(nameList.get(i).getH1()).equals("A")) {
                 title.setColor(ContextCompat.getColor(this, R.color.absent));
             }
             canvas.drawText(getAttendance(nameList.get(i).getH1()), 200, disbtnstd, title);
             title.setColor(ContextCompat.getColor(this, R.color.black));
 
-            if(getAttendance(nameList.get(i).getH2()).equals("P")){
+            if (getAttendance(nameList.get(i).getH2()).equals("P")) {
                 title.setColor(ContextCompat.getColor(this, R.color.present));
-            }
-            else if(getAttendance(nameList.get(i).getH2()).equals("A")){
+            } else if (getAttendance(nameList.get(i).getH2()).equals("A")) {
                 title.setColor(ContextCompat.getColor(this, R.color.absent));
             }
             canvas.drawText(getAttendance(nameList.get(i).getH2()), 230, disbtnstd, title);
             title.setColor(ContextCompat.getColor(this, R.color.black));
 
-            if(getAttendance(nameList.get(i).getH3()).equals("P")){
+            if (getAttendance(nameList.get(i).getH3()).equals("P")) {
                 title.setColor(ContextCompat.getColor(this, R.color.present));
-            }
-            else if(getAttendance(nameList.get(i).getH3()).equals("A")){
+            } else if (getAttendance(nameList.get(i).getH3()).equals("A")) {
                 title.setColor(ContextCompat.getColor(this, R.color.absent));
             }
             canvas.drawText(getAttendance(nameList.get(i).getH3()), 260, disbtnstd, title);
             title.setColor(ContextCompat.getColor(this, R.color.black));
 
-            if(getAttendance(nameList.get(i).getH4()).equals("P")){
+            if (getAttendance(nameList.get(i).getH4()).equals("P")) {
                 title.setColor(ContextCompat.getColor(this, R.color.present));
-            }
-            else if(getAttendance(nameList.get(i).getH4()).equals("A")){
+            } else if (getAttendance(nameList.get(i).getH4()).equals("A")) {
                 title.setColor(ContextCompat.getColor(this, R.color.absent));
             }
             canvas.drawText(getAttendance(nameList.get(i).getH4()), 290, disbtnstd, title);
             title.setColor(ContextCompat.getColor(this, R.color.black));
 
-            if(getAttendance(nameList.get(i).getH5()).equals("P")){
+            if (getAttendance(nameList.get(i).getH5()).equals("P")) {
                 title.setColor(ContextCompat.getColor(this, R.color.present));
-            }
-            else if(getAttendance(nameList.get(i).getH5()).equals("A")){
+            } else if (getAttendance(nameList.get(i).getH5()).equals("A")) {
                 title.setColor(ContextCompat.getColor(this, R.color.absent));
             }
             canvas.drawText(getAttendance(nameList.get(i).getH5()), 320, disbtnstd, title);
             title.setColor(ContextCompat.getColor(this, R.color.black));
 
-            if(getAttendance(nameList.get(i).getH6()).equals("P")){
+            if (getAttendance(nameList.get(i).getH6()).equals("P")) {
                 title.setColor(ContextCompat.getColor(this, R.color.present));
-            }
-            else if(getAttendance(nameList.get(i).getH6()).equals("A")){
+            } else if (getAttendance(nameList.get(i).getH6()).equals("A")) {
                 title.setColor(ContextCompat.getColor(this, R.color.absent));
             }
             canvas.drawText(getAttendance(nameList.get(i).getH6()), 350, disbtnstd, title);
             title.setColor(ContextCompat.getColor(this, R.color.black));
 
-            if(getAttendance(nameList.get(i).getH7()).equals("P")){
+            if (getAttendance(nameList.get(i).getH7()).equals("P")) {
                 title.setColor(ContextCompat.getColor(this, R.color.present));
-            }
-            else if(getAttendance(nameList.get(i).getH7()).equals("A")){
+            } else if (getAttendance(nameList.get(i).getH7()).equals("A")) {
                 title.setColor(ContextCompat.getColor(this, R.color.absent));
             }
             canvas.drawText(getAttendance(nameList.get(i).getH7()), 380, disbtnstd, title);
             title.setColor(ContextCompat.getColor(this, R.color.black));
-            disbtnstd+=30;
-
-//            if(i>=35){
-//                // start 2nd page
-//                pdfDocument.finishPage(myPage);
-//                PdfDocument.Page page = pdfDocument.startPage(mypageInfo);
-//                // draw something on the page
-//                Canvas ncanvas = page.getCanvas();
-//
-//                // below line is used to draw our image on our PDF file.
-//                // the first parameter of our drawbitmap method is
-//                // our bitmap
-//                // second parameter is position from left
-//                // third parameter is position from top and last
-//                // one is our variable for paint.
-//                //canvas.drawBitmap(scaledbmp, 56, 40, paint);
-//
-//                // below line is used for adding typeface for
-//                // our text which we will be adding in our PDF file.
-//                title.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
-//
-//                // below line is used for setting text size
-//                // which we will be displaying in our PDF file.
-//                title.setTextSize(15);
-//
-//                // below line is sued for setting color
-//                // of our text inside our PDF file.
-//                title.setColor(ContextCompat.getColor(this, R.color.black));
-//
-//                ncanvas.drawText("NAME", 20, 50, title);
-//                ncanvas.drawText("H1", 200, 50, title);
-//                ncanvas.drawText("H2", 230, 50, title);
-//                ncanvas.drawText("H3", 260, 50, title);
-//                ncanvas.drawText("H4", 290, 50, title);
-//                ncanvas.drawText("H5", 320, 50, title);
-//                ncanvas.drawText("H6", 350, 50, title);
-//                ncanvas.drawText("H7", 380, 50, title);
-//
-//            }
+            disbtnstd += 30;
         }
+                pdfDocument.finishPage(myPage);
+
+                PdfDocument.PageInfo mypageInfo1 = new PdfDocument.PageInfo.Builder(pagewidth, pageHeight, 2).create();
+
+                // below line is used for setting
+                // start page for our PDF file.
+                PdfDocument.Page myPage1 = pdfDocument.startPage(mypageInfo1);
+
+                // creating a variable for canvas
+                // from our page of PDF.
+                Canvas canvas1 = myPage1.getCanvas();
+
+                // below line is used to draw our image on our PDF file.
+                // the first parameter of our drawbitmap method is
+                // our bitmap
+                // second parameter is position from left
+                // third parameter is position from top and last
+                // one is our variable for paint.
+                //canvas.drawBitmap(scaledbmp, 56, 40, paint);
+
+                // below line is used for adding typeface for
+                // our text which we will be adding in our PDF file.
+                title.setTypeface(Typeface.create(Typeface.DEFAULT, Typeface.NORMAL));
+
+                // below line is used for setting text size
+                // which we will be displaying in our PDF file.
+                title.setTextSize(15);
+
+                // below line is sued for setting color
+                // of our text inside our PDF file.
+                title.setColor(ContextCompat.getColor(this, R.color.black));
+
+                // below line is used to draw text in our PDF file.
+                // the first parameter is our text, second parameter
+                // is position from start, third parameter is position from top
+                // and then we are passing our variable of paint which is title.
+                disbtnstd = 90;
+
+            for(int i=35;i<nameList.size();i++) {
+
+                //Display display1 = getWindowManager().getDefaultDisplay();
+//        int width = display.getWidth();
+//        int height = display.getHeight();
+//        canvas.drawText("YEAR :  "+year
+//                        +"\n\n"+ "DEPARTMENT :  "+dep
+//                        +"\n\n"+ "SECTION :  "+sec
+//                        +"\n\n"+ "DATE :  "+date
+//                ,
+//                200, 50, title);
+////        canvas.drawText("DEPARTMENT :  "+dep, width/2, 90, title);
+////        canvas.drawText("SECTION :  "+sec, width/2, 140, title);
+////        canvas.drawText("DATE :  "+date, width/2, 180, title);
+                canvas1.drawText(nameList.get(i).getName(), 20, disbtnstd, title);
+
+                if (getAttendance(nameList.get(i).getH1()).equals("P")) {
+                    title.setColor(ContextCompat.getColor(this, R.color.present));
+                } else if (getAttendance(nameList.get(i).getH1()).equals("A")) {
+                    title.setColor(ContextCompat.getColor(this, R.color.absent));
+                }
+                canvas1.drawText(getAttendance(nameList.get(i).getH1()), 200, disbtnstd, title);
+                title.setColor(ContextCompat.getColor(this, R.color.black));
+
+                if (getAttendance(nameList.get(i).getH2()).equals("P")) {
+                    title.setColor(ContextCompat.getColor(this, R.color.present));
+                } else if (getAttendance(nameList.get(i).getH2()).equals("A")) {
+                    title.setColor(ContextCompat.getColor(this, R.color.absent));
+                }
+                canvas1.drawText(getAttendance(nameList.get(i).getH2()), 230, disbtnstd, title);
+                title.setColor(ContextCompat.getColor(this, R.color.black));
+
+                if (getAttendance(nameList.get(i).getH3()).equals("P")) {
+                    title.setColor(ContextCompat.getColor(this, R.color.present));
+                } else if (getAttendance(nameList.get(i).getH3()).equals("A")) {
+                    title.setColor(ContextCompat.getColor(this, R.color.absent));
+                }
+                canvas1.drawText(getAttendance(nameList.get(i).getH3()), 260, disbtnstd, title);
+                title.setColor(ContextCompat.getColor(this, R.color.black));
+
+                if (getAttendance(nameList.get(i).getH4()).equals("P")) {
+                    title.setColor(ContextCompat.getColor(this, R.color.present));
+                } else if (getAttendance(nameList.get(i).getH4()).equals("A")) {
+                    title.setColor(ContextCompat.getColor(this, R.color.absent));
+                }
+                canvas1.drawText(getAttendance(nameList.get(i).getH4()), 290, disbtnstd, title);
+                title.setColor(ContextCompat.getColor(this, R.color.black));
+
+                if (getAttendance(nameList.get(i).getH5()).equals("P")) {
+                    title.setColor(ContextCompat.getColor(this, R.color.present));
+                } else if (getAttendance(nameList.get(i).getH5()).equals("A")) {
+                    title.setColor(ContextCompat.getColor(this, R.color.absent));
+                }
+                canvas1.drawText(getAttendance(nameList.get(i).getH5()), 320, disbtnstd, title);
+                title.setColor(ContextCompat.getColor(this, R.color.black));
+
+                if (getAttendance(nameList.get(i).getH6()).equals("P")) {
+                    title.setColor(ContextCompat.getColor(this, R.color.present));
+                } else if (getAttendance(nameList.get(i).getH6()).equals("A")) {
+                    title.setColor(ContextCompat.getColor(this, R.color.absent));
+                }
+                canvas1.drawText(getAttendance(nameList.get(i).getH6()), 350, disbtnstd, title);
+                title.setColor(ContextCompat.getColor(this, R.color.black));
+
+                if (getAttendance(nameList.get(i).getH7()).equals("P")) {
+                    title.setColor(ContextCompat.getColor(this, R.color.present));
+                } else if (getAttendance(nameList.get(i).getH7()).equals("A")) {
+                    title.setColor(ContextCompat.getColor(this, R.color.absent));
+                }
+                canvas1.drawText(getAttendance(nameList.get(i).getH7()), 380, disbtnstd, title);
+                title.setColor(ContextCompat.getColor(this, R.color.black));
+                disbtnstd += 30;
+            }
+
 
 
         // similarly we are creating another text and in this
@@ -296,7 +363,8 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
 
         // after adding all attributes to our
         // PDF file we will be finishing our page.
-        pdfDocument.finishPage(myPage);
+        pdfDocument.finishPage(myPage1);
+        //pdfDocument.finishPage(myPage);
 
         // below line is used to set the name of
         // our PDF file and its path.
@@ -318,6 +386,10 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
         // after storing our pdf to that
         // location we are closing our PDF file.
         pdfDocument.close();
+    }
+
+    private void secondPage() {
+
     }
 
     private boolean checkPermission() {
