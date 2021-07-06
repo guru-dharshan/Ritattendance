@@ -153,7 +153,7 @@ public class NameListActivity extends AppCompatActivity {
             editor.putString("first","1");
             editor.apply();
             firsttime++;
-            for (i = 0; i <nameList.size();i++){
+            for (i = 0; i <10;i++){
                 AttendanceModelClass modelClass=nameList.get(i);
                AttendanceModelClass attendance=new AttendanceModelClass(modelClass.getRegno(),modelClass.getPhno(),modelClass.getName(),
                        modelClass.getSec(),sem,dept,year,String.valueOf(attendanceStatus.get(i)),
@@ -165,9 +165,11 @@ public class NameListActivity extends AppCompatActivity {
                         progressBar.setVisibility(View.VISIBLE);
                         layout.setAlpha((float) 0.5);
                         count++;
-                       if(i==nameList.size()-1){
+                       if(i==10){
+                           Log.i("indeeeeex",""+i);
                            progressBar.setVisibility(View.GONE);
                            layout.setAlpha(1);
+
                        }
                    }
                });
@@ -179,7 +181,7 @@ public class NameListActivity extends AppCompatActivity {
 
         }
         else{
-            for (int i = 0; i <nameList.size();i++) {
+            for (int i = 0; i <10;i++) {
                 AttendanceModelClass modelClass = nameList.get(i);
                 String h = "h" + hr;
                 firestore.collection(date).document(String.valueOf(modelClass.getRegno())).update(h, String.valueOf(attendanceStatus.get(i))).addOnSuccessListener(new OnSuccessListener<Void>() {
