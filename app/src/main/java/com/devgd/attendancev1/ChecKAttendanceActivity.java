@@ -279,12 +279,12 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
                 //Display display1 = getWindowManager().getDefaultDisplay();
 //        int width = display.getWidth();
 //        int height = display.getHeight();
-//        canvas.drawText("YEAR :  "+year
-//                        +"\n\n"+ "DEPARTMENT :  "+dep
-//                        +"\n\n"+ "SECTION :  "+sec
-//                        +"\n\n"+ "DATE :  "+date
-//                ,
-//                200, 50, title);
+        canvas.drawText("YEAR :  "+year
+                        +"\n\n"+ "DEPARTMENT :  "+dep
+                        +"\n\n"+ "SECTION :  "+sec
+                        +"\n\n"+ "DATE :  "+date
+                ,
+                200, 50, title);
 ////        canvas.drawText("DEPARTMENT :  "+dep, width/2, 90, title);
 ////        canvas.drawText("SECTION :  "+sec, width/2, 140, title);
 ////        canvas.drawText("DATE :  "+date, width/2, 180, title);

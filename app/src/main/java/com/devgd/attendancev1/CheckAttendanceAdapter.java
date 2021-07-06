@@ -42,6 +42,7 @@ public class CheckAttendanceAdapter extends RecyclerView.Adapter<CheckAttendance
         holder.dep.setText(modelClass.getDep());
         holder.year.setText(modelClass.getYear());
         holder.sec.setText(modelClass.getSec());
+        holder.rollno.setText(String.valueOf(modelClass.getRegno()));
             if (!modelClass.getH1().equals(" ") && status(modelClass.getH1())) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     holder.h1.setCardBackgroundColor(context.getColor(R.color.present));
@@ -178,7 +179,7 @@ public class CheckAttendanceAdapter extends RecyclerView.Adapter<CheckAttendance
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView name,dep,year,sec;
+        TextView name,dep,year,sec,rollno;
         CardView h1,h2,h3,h4,h5,h6,h7,call;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -193,6 +194,7 @@ public class CheckAttendanceAdapter extends RecyclerView.Adapter<CheckAttendance
             h5=itemView.findViewById(R.id.checkH5);
             h6=itemView.findViewById(R.id.checkH6);
             h7=itemView.findViewById(R.id.checkH7);
+            rollno=itemView.findViewById(R.id.checkRoll);
             call=itemView.findViewById(R.id.checkCardView);
         }
     }

@@ -38,7 +38,7 @@ public class NameListActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     String batch,dept,sec,year,date,sem,hr;
     List<AttendanceModelClass> nameList;
-    TextView dep,sect,hour,semester;
+    TextView dep,sect,hour,semester,datet;
     PutAttendanceAdapter adapter;
     List<Boolean> attendanceStatus;
     int firsttime=0;
@@ -59,6 +59,7 @@ public class NameListActivity extends AppCompatActivity {
         dep=findViewById(R.id.namelistdepartment);
         sect=findViewById(R.id.namelistsec);
         hour=findViewById(R.id.namelisthour);
+        datet=findViewById(R.id.namelistdate);
         semester=findViewById(R.id.namelistsem);
         database=FirebaseDatabase.getInstance();
         sharedPreferences=this.getPreferences(MODE_PRIVATE);
@@ -73,6 +74,8 @@ public class NameListActivity extends AppCompatActivity {
         sem=intent.getStringExtra("sem");
         dep.setText("Department: "+dept);
         sect.setText("Section: "+sec);
+        datet.setText(date);
+
         hr=intent.getStringExtra("hour");
         hour.setText("Hour: "+hr);
         semester.setText("Semester: "+sem);
@@ -153,7 +156,7 @@ public class NameListActivity extends AppCompatActivity {
             editor.putString("first","1");
             editor.apply();
             firsttime++;
-            for (i = 0; i <10;i++){
+            for (i = 0; i <nameList.size();i++){
                 AttendanceModelClass modelClass=nameList.get(i);
                AttendanceModelClass attendance=new AttendanceModelClass(modelClass.getRegno(),modelClass.getPhno(),modelClass.getName(),
                        modelClass.getSec(),sem,dept,year,String.valueOf(attendanceStatus.get(i)),
@@ -162,13 +165,10 @@ public class NameListActivity extends AppCompatActivity {
                    @Override
                    public void onSuccess(Void unused) {
                        //Toast.makeText(NameListActivity.this, "Attendance Uploaded", Toast.LENGTH_SHORT).show();
-                        progressBar.setVisibility(View.VISIBLE);
-                        layout.setAlpha((float) 0.5);
                         count++;
                        if(i==10){
                            Log.i("indeeeeex",""+i);
-                           progressBar.setVisibility(View.GONE);
-                           layout.setAlpha(1);
+
 
                        }
                    }
@@ -181,18 +181,18 @@ public class NameListActivity extends AppCompatActivity {
 
         }
         else{
-            for (int i = 0; i <10;i++) {
+            for (int i = 0; i <nameList.size();i++) {
                 AttendanceModelClass modelClass = nameList.get(i);
                 String h = "h" + hr;
                 firestore.collection(date).document(String.valueOf(modelClass.getRegno())).update(h, String.valueOf(attendanceStatus.get(i))).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        progressBar.setVisibility(View.VISIBLE);
+
                     }
                 });
             }
             Log.i("heyyy first time","ueeeee");
-            progressBar.setVisibility(View.GONE);
+
         }
     }
 }
