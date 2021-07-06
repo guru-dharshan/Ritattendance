@@ -88,8 +88,15 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(!batch.getText().toString().equals("")) {
+                if(!batch.getText().toString().equals("") && !acayear.getText().toString().equals("")) {
                     setAdapter(batch.getText().toString());
+                    int y;
+                    y = Integer.parseInt(acayear.getText().toString()) - Integer.parseInt(batch.getText().toString());
+//                    oddind.setText(String.valueOf((y*2)-1));
+//                    evenind.setText(String.valueOf(y*2));
+                    b1.setText("Odd Sem " + String.valueOf((y * 2) - 1));
+                    b2.setText("Even Sem " + String.valueOf(y * 2));
+                    year = String.valueOf(y);
                 }
             }
         });
@@ -107,19 +114,20 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if(batch.getText().toString().equals(acayear.getText().toString())){
-                    year="1";
-                    oddind.setText("1");
-                    evenind.setText("2");
-                }
-                else {
-                    int y;
-                    y = Integer.parseInt(acayear.getText().toString())-Integer.parseInt(batch.getText().toString());
+                if(!batch.getText().toString().equals("") && !acayear.getText().toString().equals("")) {
+                    if (batch.getText().toString().equals(acayear.getText().toString())) {
+                        year = "1";
+                        oddind.setText("1");
+                        evenind.setText("2");
+                    } else {
+                        int y;
+                        y = Integer.parseInt(acayear.getText().toString()) - Integer.parseInt(batch.getText().toString());
 //                    oddind.setText(String.valueOf((y*2)-1));
 //                    evenind.setText(String.valueOf(y*2));
-                    b1.setText("Odd Sem "+String.valueOf((y*2)-1));
-                    b2.setText("Even Sem "+String.valueOf(y*2));
-                    year=String.valueOf(y);
+                        b1.setText("Odd Sem " + String.valueOf((y * 2) - 1));
+                        b2.setText("Even Sem " + String.valueOf(y * 2));
+                        year = String.valueOf(y);
+                    }
                 }
             }
         });
