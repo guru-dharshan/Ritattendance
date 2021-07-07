@@ -31,7 +31,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     Spinner dept,sec,hour;
-    TextView date;
+    TextView date,curyear;
     EditText batch,acayear;
     RadioGroup radioGroup;
     String year,semind;
@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         batch=findViewById(R.id.batch);
         date=findViewById(R.id.date);
+        curyear=findViewById(R.id.year);
         dept=findViewById(R.id.dep);
         sec=findViewById(R.id.sec);
         hour=findViewById(R.id.hour);
@@ -90,13 +91,44 @@ public class MainActivity extends AppCompatActivity {
             public void afterTextChanged(Editable editable) {
                 setAdapter(batch.getText().toString());
                 if(!batch.getText().toString().equals("") && !acayear.getText().toString().equals("")) {
-                    int y;
-                    y = Integer.parseInt(acayear.getText().toString()) - Integer.parseInt(batch.getText().toString());
+                    if (batch.getText().toString().equals(acayear.getText().toString())) {
+                        year = "1";
+                        //oddind.setText("1");
+                        //evenind.setText("2");
+                        b1.setText("Invalid Sem ");
+                        b2.setText("Invalid Sem ");
+                    } else {
+                        int y;
+                        y = Integer.parseInt(acayear.getText().toString()) - Integer.parseInt(batch.getText().toString());
 //                    oddind.setText(String.valueOf((y*2)-1));
 //                    evenind.setText(String.valueOf(y*2));
-                    b1.setText("Odd Sem " + String.valueOf((y * 2) - 1));
-                    b2.setText("Even Sem " + String.valueOf(y * 2));
-                    year = String.valueOf(y);
+//                        b1.setText("Odd Sem " + String.valueOf((y * 2) - 1));
+//                        b2.setText("Even Sem " + String.valueOf(y * 2));
+
+                        //changed
+                        if((y * 2)>8 ||y<1) {
+                            b1.setText("Invalid Sem ");
+                        }
+                        else {
+                            b1.setText("Even Sem " + String.valueOf((y * 2)));
+                        }
+
+                        //b1.setText("Even Sem " + (y * 2));
+                        if((y * 2)-1>8 || y<1) {
+                            b2.setText("Invalid Sem ");
+                        }
+                        else {
+                            b2.setText("Odd Sem " + String.valueOf((y * 2) - 1));
+                        }
+
+                        year = String.valueOf(y);
+                        if(y>4 || y<1){
+                            curyear.setText("year :");
+                        }
+                        else{
+                            curyear.setText("year :"+year);
+                        }
+                    }
                 }
             }
         });
@@ -117,16 +149,41 @@ public class MainActivity extends AppCompatActivity {
                 if(!batch.getText().toString().equals("") && !acayear.getText().toString().equals("")) {
                     if (batch.getText().toString().equals(acayear.getText().toString())) {
                         year = "1";
-                        oddind.setText("1");
-                        evenind.setText("2");
+                        //oddind.setText("1");
+                        //evenind.setText("2");
+                        b1.setText("Invalid Sem ");
+                        b2.setText("Invalid Sem ");
                     } else {
                         int y;
                         y = Integer.parseInt(acayear.getText().toString()) - Integer.parseInt(batch.getText().toString());
 //                    oddind.setText(String.valueOf((y*2)-1));
 //                    evenind.setText(String.valueOf(y*2));
-                        b1.setText("Odd Sem " + String.valueOf((y * 2) - 1));
-                        b2.setText("Even Sem " + String.valueOf(y * 2));
+//                        b1.setText("Odd Sem " + String.valueOf((y * 2) - 1));
+//                        b2.setText("Even Sem " + String.valueOf(y * 2));
+
+                        if((y * 2)>8 || y<1) {
+                            b1.setText("Invalid Sem ");
+                        }
+                        else {
+                            b1.setText("Even Sem " + String.valueOf((y * 2)));
+                        }
+
+                        //b1.setText("Even Sem " + (y * 2));
+                        if((y * 2)-1>8 || y<1) {
+                            b2.setText("Invalid Sem ");
+                        }
+                        else {
+                            b2.setText("Odd Sem " + String.valueOf((y * 2) - 1));
+                        }
                         year = String.valueOf(y);
+                        if(y>4 || y<1){
+                            curyear.setText("year :");
+                        }
+                        else{
+                            curyear.setText("year :"+year);
+                        }
+
+
                     }
                 }
             }

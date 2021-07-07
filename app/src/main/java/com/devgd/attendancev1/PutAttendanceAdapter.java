@@ -39,6 +39,7 @@ public class PutAttendanceAdapter extends RecyclerView.Adapter<PutAttendanceAdap
     public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         AttendanceModelClass modelClass=nameList.get(position);
         holder.name.setText(modelClass.getName());
+        holder.regno.setText(String.valueOf(modelClass.getRegno()));
 
         if(attendanceStatus.get(position)){
             holder.attendanceStatus.setText("present");
@@ -73,13 +74,14 @@ public class PutAttendanceAdapter extends RecyclerView.Adapter<PutAttendanceAdap
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
 
-        TextView name,attendanceStatus;
+        TextView name,attendanceStatus,regno;
         Button absendBtn;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             name=itemView.findViewById(R.id.name);
             attendanceStatus=itemView.findViewById(R.id.attendanceStatus);
             absendBtn=itemView.findViewById(R.id.absentBtn);
+            regno=itemView.findViewById(R.id.putregno);
         }
     }
     public void setNameList(List<AttendanceModelClass> nameList, List<Boolean> attendanceStatus){
