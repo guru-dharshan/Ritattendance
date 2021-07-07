@@ -157,25 +157,22 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
         // and then we are passing our variable of paint which is title.
         disbtnstd=90;
         Display display = getWindowManager().getDefaultDisplay();
-//        int width = display.getWidth();
+        int width = display.getWidth();
 //        int height = display.getHeight();
-//        canvas.drawText("YEAR :  "+year
-//                        +"\n\n"+ "DEPARTMENT :  "+dep
-//                        +"\n\n"+ "SECTION :  "+sec
-//                        +"\n\n"+ "DATE :  "+date
-//                ,
-//                200, 50, title);
-////        canvas.drawText("DEPARTMENT :  "+dep, width/2, 90, title);
-////        canvas.drawText("SECTION :  "+sec, width/2, 140, title);
-////        canvas.drawText("DATE :  "+date, width/2, 180, title);
+        canvas.drawText("YEAR :  "+year
+                ,
+                width/2, 50, title);
+        canvas.drawText("DEPARTMENT :  "+dep, (width/2)+40, 90, title);
+        canvas.drawText("SECTION :  "+sec, (width/2)+40, 140, title);
+        canvas.drawText("DATE :  "+date, (width/2)+40, 180, title);
         canvas.drawText("NAME", 20, 50, title);
-        canvas.drawText("H1", 200, 50, title);
-        canvas.drawText("H2", 230, 50, title);
-        canvas.drawText("H3", 260, 50, title);
-        canvas.drawText("H4", 290, 50, title);
-        canvas.drawText("H5", 320, 50, title);
-        canvas.drawText("H6", 350, 50, title);
-        canvas.drawText("H7", 380, 50, title);
+        canvas.drawText("H1", 260, 50, title);
+        canvas.drawText("H2", 290, 50, title);
+        canvas.drawText("H3", 320, 50, title);
+        canvas.drawText("H4", 350, 50, title);
+        canvas.drawText("H5", 380, 50, title);
+        canvas.drawText("H6", 410, 50, title);
+        canvas.drawText("H7", 440, 50, title);
         for (int i=0;i<35;i++) {
             canvas.drawText(nameList.get(i).getName(), 20, disbtnstd, title);
 
@@ -184,7 +181,7 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
             } else if (getAttendance(nameList.get(i).getH1()).equals("A")) {
                 title.setColor(ContextCompat.getColor(this, R.color.absent));
             }
-            canvas.drawText(getAttendance(nameList.get(i).getH1()), 200, disbtnstd, title);
+            canvas.drawText(getAttendance(nameList.get(i).getH1()), 260, disbtnstd, title);
             title.setColor(ContextCompat.getColor(this, R.color.black));
 
             if (getAttendance(nameList.get(i).getH2()).equals("P")) {
@@ -192,7 +189,7 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
             } else if (getAttendance(nameList.get(i).getH2()).equals("A")) {
                 title.setColor(ContextCompat.getColor(this, R.color.absent));
             }
-            canvas.drawText(getAttendance(nameList.get(i).getH2()), 230, disbtnstd, title);
+            canvas.drawText(getAttendance(nameList.get(i).getH2()), 290, disbtnstd, title);
             title.setColor(ContextCompat.getColor(this, R.color.black));
 
             if (getAttendance(nameList.get(i).getH3()).equals("P")) {
@@ -200,7 +197,7 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
             } else if (getAttendance(nameList.get(i).getH3()).equals("A")) {
                 title.setColor(ContextCompat.getColor(this, R.color.absent));
             }
-            canvas.drawText(getAttendance(nameList.get(i).getH3()), 260, disbtnstd, title);
+            canvas.drawText(getAttendance(nameList.get(i).getH3()), 320, disbtnstd, title);
             title.setColor(ContextCompat.getColor(this, R.color.black));
 
             if (getAttendance(nameList.get(i).getH4()).equals("P")) {
@@ -208,7 +205,7 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
             } else if (getAttendance(nameList.get(i).getH4()).equals("A")) {
                 title.setColor(ContextCompat.getColor(this, R.color.absent));
             }
-            canvas.drawText(getAttendance(nameList.get(i).getH4()), 290, disbtnstd, title);
+            canvas.drawText(getAttendance(nameList.get(i).getH4()), 350, disbtnstd, title);
             title.setColor(ContextCompat.getColor(this, R.color.black));
 
             if (getAttendance(nameList.get(i).getH5()).equals("P")) {
@@ -216,7 +213,7 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
             } else if (getAttendance(nameList.get(i).getH5()).equals("A")) {
                 title.setColor(ContextCompat.getColor(this, R.color.absent));
             }
-            canvas.drawText(getAttendance(nameList.get(i).getH5()), 320, disbtnstd, title);
+            canvas.drawText(getAttendance(nameList.get(i).getH5()), 390, disbtnstd, title);
             title.setColor(ContextCompat.getColor(this, R.color.black));
 
             if (getAttendance(nameList.get(i).getH6()).equals("P")) {
@@ -224,7 +221,7 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
             } else if (getAttendance(nameList.get(i).getH6()).equals("A")) {
                 title.setColor(ContextCompat.getColor(this, R.color.absent));
             }
-            canvas.drawText(getAttendance(nameList.get(i).getH6()), 350, disbtnstd, title);
+            canvas.drawText(getAttendance(nameList.get(i).getH6()), 410, disbtnstd, title);
             title.setColor(ContextCompat.getColor(this, R.color.black));
 
             if (getAttendance(nameList.get(i).getH7()).equals("P")) {
@@ -232,7 +229,7 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
             } else if (getAttendance(nameList.get(i).getH7()).equals("A")) {
                 title.setColor(ContextCompat.getColor(this, R.color.absent));
             }
-            canvas.drawText(getAttendance(nameList.get(i).getH7()), 380, disbtnstd, title);
+            canvas.drawText(getAttendance(nameList.get(i).getH7()), 440, disbtnstd, title);
             title.setColor(ContextCompat.getColor(this, R.color.black));
             disbtnstd += 30;
         }
@@ -272,19 +269,19 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
                 // the first parameter is our text, second parameter
                 // is position from start, third parameter is position from top
                 // and then we are passing our variable of paint which is title.
-                disbtnstd = 90;
+                disbtnstd = 50;
 
             for(int i=35;i<nameList.size();i++) {
 
                 //Display display1 = getWindowManager().getDefaultDisplay();
 //        int width = display.getWidth();
 //        int height = display.getHeight();
-        canvas.drawText("YEAR :  "+year
-                        +"\n\n"+ "DEPARTMENT :  "+dep
-                        +"\n\n"+ "SECTION :  "+sec
-                        +"\n\n"+ "DATE :  "+date
-                ,
-                200, 50, title);
+//        canvas1.drawText("YEAR :  "+year
+//                        +"\n\n"+ "DEPARTMENT :  "+dep
+//                        +"\n\n"+ "SECTION :  "+sec
+//                        +"\n\n"+ "DATE :  "+date
+//                ,
+//                200, 50, title);
 ////        canvas.drawText("DEPARTMENT :  "+dep, width/2, 90, title);
 ////        canvas.drawText("SECTION :  "+sec, width/2, 140, title);
 ////        canvas.drawText("DATE :  "+date, width/2, 180, title);
@@ -295,7 +292,7 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
                 } else if (getAttendance(nameList.get(i).getH1()).equals("A")) {
                     title.setColor(ContextCompat.getColor(this, R.color.absent));
                 }
-                canvas1.drawText(getAttendance(nameList.get(i).getH1()), 200, disbtnstd, title);
+                canvas1.drawText(getAttendance(nameList.get(i).getH1()), 260, disbtnstd, title);
                 title.setColor(ContextCompat.getColor(this, R.color.black));
 
                 if (getAttendance(nameList.get(i).getH2()).equals("P")) {
@@ -303,7 +300,7 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
                 } else if (getAttendance(nameList.get(i).getH2()).equals("A")) {
                     title.setColor(ContextCompat.getColor(this, R.color.absent));
                 }
-                canvas1.drawText(getAttendance(nameList.get(i).getH2()), 230, disbtnstd, title);
+                canvas1.drawText(getAttendance(nameList.get(i).getH2()), 290, disbtnstd, title);
                 title.setColor(ContextCompat.getColor(this, R.color.black));
 
                 if (getAttendance(nameList.get(i).getH3()).equals("P")) {
@@ -311,7 +308,7 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
                 } else if (getAttendance(nameList.get(i).getH3()).equals("A")) {
                     title.setColor(ContextCompat.getColor(this, R.color.absent));
                 }
-                canvas1.drawText(getAttendance(nameList.get(i).getH3()), 260, disbtnstd, title);
+                canvas1.drawText(getAttendance(nameList.get(i).getH3()), 320, disbtnstd, title);
                 title.setColor(ContextCompat.getColor(this, R.color.black));
 
                 if (getAttendance(nameList.get(i).getH4()).equals("P")) {
@@ -319,7 +316,7 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
                 } else if (getAttendance(nameList.get(i).getH4()).equals("A")) {
                     title.setColor(ContextCompat.getColor(this, R.color.absent));
                 }
-                canvas1.drawText(getAttendance(nameList.get(i).getH4()), 290, disbtnstd, title);
+                canvas1.drawText(getAttendance(nameList.get(i).getH4()), 350, disbtnstd, title);
                 title.setColor(ContextCompat.getColor(this, R.color.black));
 
                 if (getAttendance(nameList.get(i).getH5()).equals("P")) {
@@ -327,7 +324,7 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
                 } else if (getAttendance(nameList.get(i).getH5()).equals("A")) {
                     title.setColor(ContextCompat.getColor(this, R.color.absent));
                 }
-                canvas1.drawText(getAttendance(nameList.get(i).getH5()), 320, disbtnstd, title);
+                canvas1.drawText(getAttendance(nameList.get(i).getH5()), 380, disbtnstd, title);
                 title.setColor(ContextCompat.getColor(this, R.color.black));
 
                 if (getAttendance(nameList.get(i).getH6()).equals("P")) {
@@ -335,7 +332,7 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
                 } else if (getAttendance(nameList.get(i).getH6()).equals("A")) {
                     title.setColor(ContextCompat.getColor(this, R.color.absent));
                 }
-                canvas1.drawText(getAttendance(nameList.get(i).getH6()), 350, disbtnstd, title);
+                canvas1.drawText(getAttendance(nameList.get(i).getH6()), 410, disbtnstd, title);
                 title.setColor(ContextCompat.getColor(this, R.color.black));
 
                 if (getAttendance(nameList.get(i).getH7()).equals("P")) {
@@ -343,7 +340,7 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
                 } else if (getAttendance(nameList.get(i).getH7()).equals("A")) {
                     title.setColor(ContextCompat.getColor(this, R.color.absent));
                 }
-                canvas1.drawText(getAttendance(nameList.get(i).getH7()), 380, disbtnstd, title);
+                canvas1.drawText(getAttendance(nameList.get(i).getH7()), 440, disbtnstd, title);
                 title.setColor(ContextCompat.getColor(this, R.color.black));
                 disbtnstd += 30;
             }

@@ -74,11 +74,14 @@ public class NameListActivity extends AppCompatActivity {
         sem=intent.getStringExtra("sem");
         dep.setText("Department: "+dept);
         sect.setText("Section: "+sec);
-        datet.setText(date);
+        datet.setText("Date: "+date);
 
         hr=intent.getStringExtra("hour");
         hour.setText("Hour: "+hr);
         semester.setText("Semester: "+sem);
+        String prevPeriod;
+        int las_per=Integer.parseInt(hr)-1;
+        prevPeriod="h"+las_per;
         reference=database.getReference(batch);
         adapter=new PutAttendanceAdapter(this);
         recyclerView.setAdapter(adapter);
@@ -150,13 +153,11 @@ public class NameListActivity extends AppCompatActivity {
     }
 
     public void upload(View view) {
+        firsttime=0;
        // if(sharedPreferences.getString("first",null)==null) {
         if(hr.equals("1")) {
-            SharedPreferences.Editor editor=sharedPreferences.edit();
-            editor.putString("first","1");
-            editor.apply();
-            firsttime++;
             for (i = 0; i <nameList.size();i++){
+
                 AttendanceModelClass modelClass=nameList.get(i);
                AttendanceModelClass attendance=new AttendanceModelClass(modelClass.getRegno(),modelClass.getPhno(),modelClass.getName(),
                        modelClass.getSec(),sem,dept,year,String.valueOf(attendanceStatus.get(i)),
@@ -166,11 +167,7 @@ public class NameListActivity extends AppCompatActivity {
                    public void onSuccess(Void unused) {
                        //Toast.makeText(NameListActivity.this, "Attendance Uploaded", Toast.LENGTH_SHORT).show();
                         count++;
-                       if(i==10){
-                           Log.i("indeeeeex",""+i);
-
-
-                       }
+                       firsttime++;
                    }
                });
 
@@ -180,19 +177,19 @@ public class NameListActivity extends AppCompatActivity {
 
 
         }
-        else{
+        else {
             for (int i = 0; i <nameList.size();i++) {
+
                 AttendanceModelClass modelClass = nameList.get(i);
                 String h = "h" + hr;
                 firestore.collection(date).document(String.valueOf(modelClass.getRegno())).update(h, String.valueOf(attendanceStatus.get(i))).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-
+                        firsttime++;
                     }
                 });
             }
-            Log.i("heyyy first time","ueeeee");
-
         }
+            Toast.makeText(this, "Attendance Uploaded", Toast.LENGTH_SHORT).show();
     }
 }
