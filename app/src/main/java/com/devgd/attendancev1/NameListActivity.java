@@ -2,6 +2,7 @@ package com.devgd.attendancev1;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -56,6 +57,7 @@ public class NameListActivity extends AppCompatActivity {
         recyclerView=findViewById(R.id.namelistrecyclerview);
         nameList=new ArrayList<>();
         attendanceStatus=new ArrayList<>();
+
         dep=findViewById(R.id.namelistdepartment);
         sect=findViewById(R.id.namelistsec);
         hour=findViewById(R.id.namelisthour);
@@ -138,10 +140,14 @@ public class NameListActivity extends AppCompatActivity {
                         attendanceStatus.add(true);
                         nameList.add(modelClass);
                     }
-                    adapter.setNameList(nameList, attendanceStatus);
-                    recyclerView.setAdapter(adapter);
-                    recyclerView.setLayoutManager(new LinearLayoutManager(NameListActivity.this));
+
                 }
+                if(nameList.size()==0){
+                    Toast.makeText(NameListActivity.this, "NO DATA AVAILABLE", Toast.LENGTH_LONG).show();
+                }
+                adapter.setNameList(nameList, attendanceStatus);
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(NameListActivity.this));
             }
 
             @Override
@@ -190,6 +196,11 @@ public class NameListActivity extends AppCompatActivity {
                 });
             }
         }
-            Toast.makeText(this, "Attendance Uploaded", Toast.LENGTH_SHORT).show();
+        if(nameList.size()==0){
+            Toast.makeText(NameListActivity.this, "no data available", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(NameListActivity.this, "Attendance uploaded", Toast.LENGTH_SHORT).show();
+        }
     }
 }

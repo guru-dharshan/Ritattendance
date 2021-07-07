@@ -1,6 +1,7 @@
 package com.devgd.attendancev1;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -90,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 setAdapter(batch.getText().toString());
+                radioGroup.clearCheck();
                 if(!batch.getText().toString().equals("") && !acayear.getText().toString().equals("")) {
                     if (batch.getText().toString().equals(acayear.getText().toString())) {
                         year = "1";
@@ -146,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                radioGroup.clearCheck();
                 if(!batch.getText().toString().equals("") && !acayear.getText().toString().equals("")) {
                     if (batch.getText().toString().equals(acayear.getText().toString())) {
                         year = "1";

@@ -2,6 +2,7 @@ package com.devgd.attendancev1;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -55,6 +56,7 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chec_k_attendance);
+
         recyclerView=findViewById(R.id.checkAttendanceRecyclerview);
         firestore=FirebaseFirestore.getInstance();
         Intent intent=getIntent();
