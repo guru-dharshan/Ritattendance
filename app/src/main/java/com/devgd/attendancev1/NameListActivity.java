@@ -2,6 +2,7 @@ package com.devgd.attendancev1;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -63,6 +64,7 @@ public class NameListActivity extends AppCompatActivity {
         semester=findViewById(R.id.namelistsem);
         database=FirebaseDatabase.getInstance();
         sharedPreferences=this.getPreferences(MODE_PRIVATE);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         progressBar=findViewById(R.id.progressBar);
         layout=findViewById(R.id.layout);
         Intent intent=getIntent();

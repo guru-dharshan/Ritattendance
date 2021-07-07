@@ -2,6 +2,7 @@ package com.devgd.attendancev1;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -26,6 +27,7 @@ public class Login extends AppCompatActivity {
         firebaseAuth=FirebaseAuth.getInstance();
         email=findViewById(R.id.email);
         password=findViewById(R.id.password);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
 
     }

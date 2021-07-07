@@ -2,6 +2,7 @@ package com.devgd.attendancev1;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -47,7 +48,6 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
     private static final int PERMISSION_REQUEST_CODE = 200;
     int pageHeight = 1120;
     int pagewidth = 792;
-
     // creating a bitmap variable
     // for storing our images
     Bitmap bmp, scaledbmp;
@@ -62,6 +62,7 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
         year=intent.getStringExtra("year");
         sec=intent.getStringExtra("sec");
         dep=intent.getStringExtra("dep");
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         nameList=new ArrayList<>();
         adapter=new CheckAttendanceAdapter(this);
         recyclerView.setAdapter(adapter);
