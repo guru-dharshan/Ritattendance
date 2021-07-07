@@ -88,8 +88,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                setAdapter(batch.getText().toString());
                 if(!batch.getText().toString().equals("") && !acayear.getText().toString().equals("")) {
-                    setAdapter(batch.getText().toString());
                     int y;
                     y = Integer.parseInt(acayear.getText().toString()) - Integer.parseInt(batch.getText().toString());
 //                    oddind.setText(String.valueOf((y*2)-1));

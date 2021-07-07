@@ -98,6 +98,10 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
                         nameList.add(modelClass);
                     //}
                 }
+                if(nameList.size()==0){
+                    Toast.makeText(ChecKAttendanceActivity.this, "NO DATA AVAILABLE", Toast.LENGTH_LONG).show();
+                }
+
                 adapter.setNameList(nameList);
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(ChecKAttendanceActivity.this));
