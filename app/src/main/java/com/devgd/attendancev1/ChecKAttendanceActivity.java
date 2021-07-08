@@ -161,25 +161,28 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
         // the first parameter is our text, second parameter
         // is position from start, third parameter is position from top
         // and then we are passing our variable of paint which is title.
-        disbtnstd=90;
+        disbtnstd=120;
         Display display = getWindowManager().getDefaultDisplay();
         int width = display.getWidth();
 //        int height = display.getHeight();
-        canvas.drawText("YEAR :  "+year
+        canvas.drawText("YEAR :  "+year+
+                        "DEPARTMENT :  "+dep+
+                        "SECTION :  "+sec+
+                        "DATE :  "+date
                 ,
-                width/2, 50, title);
-        canvas.drawText("DEPARTMENT :  "+dep, (width/2)+40, 90, title);
-        canvas.drawText("SECTION :  "+sec, (width/2)+40, 140, title);
-        canvas.drawText("DATE :  "+date, (width/2)+40, 180, title);
-        canvas.drawText("NAME", 20, 50, title);
-        canvas.drawText("H1", 260, 50, title);
-        canvas.drawText("H2", 290, 50, title);
-        canvas.drawText("H3", 320, 50, title);
-        canvas.drawText("H4", 350, 50, title);
-        canvas.drawText("H5", 380, 50, title);
-        canvas.drawText("H6", 410, 50, title);
-        canvas.drawText("H7", 440, 50, title);
-        for (int i=0;i<35;i++) {
+                200, 50, title);
+//        canvas.drawText("DEPARTMENT :  "+dep, (width/2)+40, 90, title);
+//        canvas.drawText("SECTION :  "+sec, (width/2)+40, 140, title);
+//        canvas.drawText("DATE :  "+date, (width/2)+40, 180, title);
+        canvas.drawText("NAME", 20, 90, title);
+        canvas.drawText("H1", 260, 90, title);
+        canvas.drawText("H2", 290, 90, title);
+        canvas.drawText("H3", 320, 90, title);
+        canvas.drawText("H4", 350, 90, title);
+        canvas.drawText("H5", 380, 90, title);
+        canvas.drawText("H6", 410, 90, title);
+        canvas.drawText("H7", 440, 90, title);
+        for (int i=0;i<31;i++) {
             canvas.drawText(nameList.get(i).getName(), 20, disbtnstd, title);
 
             if (getAttendance(nameList.get(i).getH1()).equals("P")) {
@@ -219,7 +222,7 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
             } else if (getAttendance(nameList.get(i).getH5()).equals("A")) {
                 title.setColor(ContextCompat.getColor(this, R.color.absent));
             }
-            canvas.drawText(getAttendance(nameList.get(i).getH5()), 390, disbtnstd, title);
+            canvas.drawText(getAttendance(nameList.get(i).getH5()), 380, disbtnstd, title);
             title.setColor(ContextCompat.getColor(this, R.color.black));
 
             if (getAttendance(nameList.get(i).getH6()).equals("P")) {
@@ -277,7 +280,7 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
                 // and then we are passing our variable of paint which is title.
                 disbtnstd = 50;
 
-            for(int i=35;i<nameList.size();i++) {
+            for(int i=31;i<nameList.size();i++) {
 
                 //Display display1 = getWindowManager().getDefaultDisplay();
 //        int width = display.getWidth();

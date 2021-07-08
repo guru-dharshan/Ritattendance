@@ -17,6 +17,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
     TextView date,curyear;
     EditText batch,acayear;
     RadioGroup radioGroup;
-    String year,semind;
+    String year,semind="";
     TextView oddind,evenind;
     RadioButton b1,b2;
     DatePickerDialog datePickerDialog;
@@ -212,27 +213,45 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+    public boolean validate(){
+        if(!batch.getText().toString().isEmpty() && !acayear.getText().toString().isEmpty() && !semind.isEmpty() && !date.getText().toString().equals("date")){
+            return true;
+        }
+        return false;
+    }
 
     public void fetch(View view) {
-        Intent intent=new Intent(getApplicationContext(),NameListActivity.class);
-        intent.putExtra("batch",batch.getText().toString());
-        intent.putExtra("date",date.getText().toString());
-        intent.putExtra("dep",dept.getSelectedItem().toString());
-        intent.putExtra("sec",sec.getSelectedItem().toString());
-        intent.putExtra("hour",hour.getSelectedItem().toString());
-        intent.putExtra("year",year);
-        intent.putExtra("sem",semind);
-        startActivity(intent);
+        if(validate()){
+            Intent intent=new Intent(getApplicationContext(),NameListActivity.class);
+            intent.putExtra("batch",batch.getText().toString());
+            intent.putExtra("date",date.getText().toString());
+            intent.putExtra("dep",dept.getSelectedItem().toString());
+            intent.putExtra("sec",sec.getSelectedItem().toString());
+            intent.putExtra("hour",hour.getSelectedItem().toString());
+            intent.putExtra("year",year);
+            intent.putExtra("sem",semind);
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(this, "fill the required data", Toast.LENGTH_SHORT).show();
+        }
+
 
     }
 
     public void check(View view) {
-        Intent intent=new Intent(getApplicationContext(),ChecKAttendanceActivity.class);
-        intent.putExtra("year",year);
-        intent.putExtra("dep",dept.getSelectedItem().toString());
-        intent.putExtra("sec",sec.getSelectedItem().toString());
-        intent.putExtra("date",date.getText().toString().trim());
-        startActivity(intent);
+        if(validate()) {
+            Intent intent = new Intent(getApplicationContext(), ChecKAttendanceActivity.class);
+            intent.putExtra("year", year);
+            intent.putExtra("dep", dept.getSelectedItem().toString());
+            intent.putExtra("sec", sec.getSelectedItem().toString());
+            intent.putExtra("date", date.getText().toString().trim());
+            startActivity(intent);
+        }
+        else {
+            Toast.makeText(this, "fill the required data", Toast.LENGTH_SHORT).show();
+        }
+
 
 
     }
