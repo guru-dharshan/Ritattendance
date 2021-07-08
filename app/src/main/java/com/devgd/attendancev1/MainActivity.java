@@ -4,11 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
@@ -20,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -40,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     TextView oddind,evenind;
     RadioButton b1,b2;
     DatePickerDialog datePickerDialog;
+    FirebaseAuth auth;
     ArrayAdapter deptadapter, secadapter, houradapter, updatedDepAdapter,updatedSecAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         hour=findViewById(R.id.hour);
         acayear=findViewById(R.id.acayear);
         radioGroup=findViewById(R.id.radioGroup);
+        auth=FirebaseAuth.getInstance();
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         b1=findViewById(R.id.oddSem);
         b2=findViewById(R.id.evenSem);
@@ -292,5 +299,30 @@ public class MainActivity extends AppCompatActivity {
         else {
             dept.setAdapter(deptadapter);
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.log_out) {
+            auth.signOut();
+            Intent intent=new Intent(getApplicationContext(),Login.class);
+            SharedPreferences preferences = this.getSharedPreferences("preference", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.clear();
+            editor.apply();
+            startActivity(intent);
+            finish();
+            Toast.makeText(getApplicationContext(), "Logged Out Successfully!", Toast.LENGTH_LONG).show();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

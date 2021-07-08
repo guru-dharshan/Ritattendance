@@ -7,10 +7,13 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -19,6 +22,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,6 +52,7 @@ public class NameListActivity extends AppCompatActivity {
     DatabaseReference reference;
     ProgressBar progressBar;
     CardView layout;
+    FirebaseAuth auth;
     int count=0,i;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +83,7 @@ public class NameListActivity extends AppCompatActivity {
         dep.setText("Department: "+dept);
         sect.setText("Section: "+sec);
         datet.setText("Date: "+date);
+        auth=FirebaseAuth.getInstance();
 
         hr=intent.getStringExtra("hour");
         hour.setText("Hour: "+hr);
@@ -203,5 +209,30 @@ public class NameListActivity extends AppCompatActivity {
         else {
             Toast.makeText(NameListActivity.this, "Attendance uploaded", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.log_out) {
+            auth.signOut();
+            Intent intent=new Intent(getApplicationContext(),Login.class);
+            SharedPreferences preferences = this.getSharedPreferences("preference", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.clear();
+            editor.apply();
+            startActivity(intent);
+            finish();
+            Toast.makeText(getApplicationContext(), "Logged Out Successfully!", Toast.LENGTH_LONG).show();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 }

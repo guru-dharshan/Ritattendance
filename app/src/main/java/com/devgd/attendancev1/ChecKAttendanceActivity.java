@@ -8,7 +8,9 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,13 +21,21 @@ import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.Display;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import org.apache.poi.hssf.usermodel.HSSFCell;
+import org.apache.poi.hssf.usermodel.HSSFRow;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -44,13 +54,14 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
     String date,year,sec,dep;
     CheckAttendanceAdapter adapter;
     List<AttendanceModelClass> nameList;
-
+    FirebaseAuth auth;
     private static final int PERMISSION_REQUEST_CODE = 200;
     int pageHeight = 1120;
     int pagewidth = 792;
     // creating a bitmap variable
     // for storing our images
     Bitmap bmp, scaledbmp;
+    private File filePath;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,10 +77,11 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         nameList=new ArrayList<>();
         adapter=new CheckAttendanceAdapter(this);
+        auth=FirebaseAuth.getInstance();
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher_background);
+        bmp = BitmapFactory.decodeResource(getResources(), R.drawable.logo);
         //scaledbmp = Bitmap.createScaledBitmap(bmp, 140, 140, false);
 
 
@@ -444,4 +456,110 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
     public void pdf(View view) {
         generatePDF();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.log_out) {
+            auth.signOut();
+            Intent intent=new Intent(getApplicationContext(),Login.class);
+            SharedPreferences preferences = this.getSharedPreferences("preference", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.clear();
+            editor.apply();
+            startActivity(intent);
+            finish();
+            Toast.makeText(getApplicationContext(), "Logged Out Successfully!", Toast.LENGTH_LONG).show();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    public void xcel(View view) {
+        filePath = new File(Environment.getExternalStorageDirectory().toString() + "/attendance.xls");
+        HSSFWorkbook hssfWorkbook = new HSSFWorkbook();
+        HSSFSheet hssfSheet = hssfWorkbook.createSheet("Custom Sheet");
+        for(int i=0;i<nameList.size();i++) {
+            HSSFRow nameRow = hssfSheet.createRow(i);
+            HSSFCell nameCell = nameRow.createCell(0);
+
+            nameCell.setCellValue(nameList.get(i).getName());
+
+            //h1
+//            nameRow = hssfSheet.createRow(i);
+//            nameCell = nameRow.createCell(1);
+//
+//            nameCell.setCellValue(getAttendance(nameList.get(i).getH1()));
+
+            //h2
+//            HSSFRow h2Row = hssfSheet.createRow(i);
+//            HSSFCell h2Cell = h2Row.createCell(2);
+//
+//            h2Cell.setCellValue(getAttendance(nameList.get(i).getH2()));
+//
+//            //h3
+//            HSSFRow h3Row = hssfSheet.createRow(i);
+//            HSSFCell h3Cell = h3Row.createCell(3);
+//
+//            h3Cell.setCellValue(getAttendance(nameList.get(i).getH3()));
+//
+//            //h4
+//            HSSFRow h4Row = hssfSheet.createRow(i);
+//            HSSFCell h4Cell = h4Row.createCell(4);
+//
+//            h4Cell.setCellValue(getAttendance(nameList.get(i).getH4()));
+//
+//            //h5
+//            HSSFRow h5Row = hssfSheet.createRow(i);
+//            HSSFCell h5Cell = h5Row.createCell(5);
+//
+//            h5Cell.setCellValue(getAttendance(nameList.get(i).getH5()));
+//
+//            //h6
+//            HSSFRow h6Row = hssfSheet.createRow(i);
+//            HSSFCell h6Cell = h6Row.createCell(6);
+//
+//            h6Cell.setCellValue(getAttendance(nameList.get(i).getH6()));
+//
+//            //h7
+//            HSSFRow h7Row = hssfSheet.createRow(i);
+//            HSSFCell h7Cell = h7Row.createCell(7);
+//
+//            h7Cell.setCellValue(getAttendance(nameList.get(i).getH7()));
+
+
+        }
+        for(int i=0;i<nameList.size();i++) {
+            HSSFRow h2Row = hssfSheet.createRow(i);
+           HSSFCell h2Cell = h2Row.createCell(1);
+
+            h2Cell.setCellValue(getAttendance(nameList.get(i).getH1()));
+        }
+
+
+        try {
+            if (!filePath.exists()){
+                filePath.createNewFile();
+            }
+
+            FileOutputStream fileOutputStream= new FileOutputStream(filePath);
+            hssfWorkbook.write(fileOutputStream);
+
+            if (fileOutputStream!=null){
+                fileOutputStream.flush();
+                fileOutputStream.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }
