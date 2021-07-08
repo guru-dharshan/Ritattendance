@@ -53,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         hour=findViewById(R.id.hour);
         acayear=findViewById(R.id.acayear);
         radioGroup=findViewById(R.id.radioGroup);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         b1=findViewById(R.id.oddSem);
         b2=findViewById(R.id.evenSem);
 //        oddind=findViewById(R.id.oddSemInd);

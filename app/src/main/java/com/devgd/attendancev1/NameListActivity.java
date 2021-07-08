@@ -65,6 +65,7 @@ public class NameListActivity extends AppCompatActivity {
         semester=findViewById(R.id.namelistsem);
         database=FirebaseDatabase.getInstance();
         sharedPreferences=this.getPreferences(MODE_PRIVATE);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         progressBar=findViewById(R.id.progressBar);
         layout=findViewById(R.id.layout);
         Intent intent=getIntent();
