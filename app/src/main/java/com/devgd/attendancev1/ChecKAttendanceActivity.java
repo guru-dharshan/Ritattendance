@@ -487,62 +487,60 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
         filePath = new File(Environment.getExternalStorageDirectory().toString() + "/attendance.xls");
         HSSFWorkbook hssfWorkbook = new HSSFWorkbook();
         HSSFSheet hssfSheet = hssfWorkbook.createSheet("Custom Sheet");
+        HSSFRow nameRow;
+        HSSFCell nameCell;
+
+
         for(int i=0;i<nameList.size();i++) {
-            HSSFRow nameRow = hssfSheet.createRow(i);
-            HSSFCell nameCell = nameRow.createCell(0);
+            nameRow = hssfSheet.createRow(i);
+            nameCell = nameRow.createCell(0);
 
             nameCell.setCellValue(nameList.get(i).getName());
 
             //h1
-//            nameRow = hssfSheet.createRow(i);
-//            nameCell = nameRow.createCell(1);
-//
-//            nameCell.setCellValue(getAttendance(nameList.get(i).getH1()));
+
+           nameCell = nameRow.createCell(1);
+
+           nameCell.setCellValue(getAttendance(nameList.get(i).getH1()));
 
             //h2
-//            HSSFRow h2Row = hssfSheet.createRow(i);
-//            HSSFCell h2Cell = h2Row.createCell(2);
-//
-//            h2Cell.setCellValue(getAttendance(nameList.get(i).getH2()));
-//
-//            //h3
-//            HSSFRow h3Row = hssfSheet.createRow(i);
-//            HSSFCell h3Cell = h3Row.createCell(3);
-//
-//            h3Cell.setCellValue(getAttendance(nameList.get(i).getH3()));
-//
-//            //h4
-//            HSSFRow h4Row = hssfSheet.createRow(i);
-//            HSSFCell h4Cell = h4Row.createCell(4);
-//
-//            h4Cell.setCellValue(getAttendance(nameList.get(i).getH4()));
-//
-//            //h5
-//            HSSFRow h5Row = hssfSheet.createRow(i);
-//            HSSFCell h5Cell = h5Row.createCell(5);
-//
-//            h5Cell.setCellValue(getAttendance(nameList.get(i).getH5()));
-//
-//            //h6
-//            HSSFRow h6Row = hssfSheet.createRow(i);
-//            HSSFCell h6Cell = h6Row.createCell(6);
-//
-//            h6Cell.setCellValue(getAttendance(nameList.get(i).getH6()));
-//
-//            //h7
-//            HSSFRow h7Row = hssfSheet.createRow(i);
-//            HSSFCell h7Cell = h7Row.createCell(7);
-//
-//            h7Cell.setCellValue(getAttendance(nameList.get(i).getH7()));
+            nameCell = nameRow.createCell(2);
+
+            nameCell.setCellValue(getAttendance(nameList.get(i).getH1()));
+
+
+            //h3
+            nameCell = nameRow.createCell(3);
+
+            nameCell.setCellValue(getAttendance(nameList.get(i).getH1()));
+
+
+            //h4
+            nameCell = nameRow.createCell(4);
+
+            nameCell.setCellValue(getAttendance(nameList.get(i).getH1()));
+
+
+            //h5
+            nameCell = nameRow.createCell(5);
+
+            nameCell.setCellValue(getAttendance(nameList.get(i).getH1()));
+
+
+            //h6
+            nameCell = nameRow.createCell(6);
+
+            nameCell.setCellValue(getAttendance(nameList.get(i).getH1()));
+
+            //h7
+            nameCell = nameRow.createCell(7);
+
+            nameCell.setCellValue(getAttendance(nameList.get(i).getH1()));
+
 
 
         }
-        for(int i=0;i<nameList.size();i++) {
-            HSSFRow h2Row = hssfSheet.createRow(i);
-           HSSFCell h2Cell = h2Row.createCell(1);
 
-            h2Cell.setCellValue(getAttendance(nameList.get(i).getH1()));
-        }
 
 
         try {
