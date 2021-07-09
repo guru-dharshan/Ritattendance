@@ -12,19 +12,23 @@
         android:orientation="horizontal">
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="PDF"
+            android:layout_margin="5dp"
+            android:layout_weight="1"
             android:onClick="pdf"
             >
         </Button>
+
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="20dp"
-            android:text="PDF"
+           android:layout_margin="5dp"
+            android:layout_weight="1"
+            android:text="excel"
             android:onClick="xcel"
             >
         </Button>
