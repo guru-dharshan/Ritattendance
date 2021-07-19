@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -395,7 +396,15 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
 
         // below line is used to set the name of
         // our PDF file and its path.
-        File file = new File(Environment.getExternalStorageDirectory(), year+"-"+"-"+sec+"-"+date+"_Attendance.pdf");
+        File file = new File(Environment.getExternalStorageDirectory().toString() + "/"+"RitAttendance"+"/"+year+"-"+"-"+sec+"-"+date+"attendance.pdf");
+
+        //creatin dir in internal storage
+        if(ActivityCompat.checkSelfPermission(ChecKAttendanceActivity.this, WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED){
+            createFolder();
+        }
+        else {
+            ActivityCompat.requestPermissions(ChecKAttendanceActivity.this,new String[]{READ_EXTERNAL_STORAGE},100);
+        }
 
         try {
             // after creating a file name we will
@@ -448,7 +457,15 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
                     Toast.makeText(this, "Permission Denined.", Toast.LENGTH_SHORT).show();
                     finish();
                 }
+
+
             }
+        }
+        if(requestCode==100 &&(grantResults.length>0)&& (grantResults[0]==PackageManager.PERMISSION_GRANTED)){
+            createFolder();
+        }
+        else{
+            Toast.makeText(this, "permission denied", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -475,35 +492,37 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
     public void pdf(View view) {
         generatePDF();
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.log_out) {
-            auth.signOut();
-            Intent intent=new Intent(getApplicationContext(),Login.class);
-            SharedPreferences preferences = this.getSharedPreferences("preference", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.clear();
-            editor.apply();
-            startActivity(intent);
-            finish();
-            Toast.makeText(getApplicationContext(), "Logged Out Successfully!", Toast.LENGTH_LONG).show();
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
-    }
+// menu top
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu, menu);
+//        return true;
+//    }
+//
+//
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//        if (id == R.id.log_out) {
+//            auth.signOut();
+//            Intent intent=new Intent(getApplicationContext(),Login.class);
+//            SharedPreferences preferences = this.getSharedPreferences("preference", Context.MODE_PRIVATE);
+//            SharedPreferences.Editor editor = preferences.edit();
+//            editor.clear();
+//            editor.apply();
+//            startActivity(intent);
+//            finish();
+//            Toast.makeText(getApplicationContext(), "Logged Out Successfully!", Toast.LENGTH_LONG).show();
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
 
     public void xcel(View view) {
-        filePath = new File(Environment.getExternalStorageDirectory().toString() + "/"+year+"-"+"-"+sec+"-"+date+"attendance.xls");
+        filePath = new File(Environment.getExternalStorageDirectory().toString() + "/"+"RitAttendance"+"/"+year+"-"+"-"+sec+"-"+date+"attendance.xls");
         HSSFWorkbook hssfWorkbook = new HSSFWorkbook();
         HSSFSheet hssfSheet = hssfWorkbook.createSheet("Sheet 1");
         HSSFRow nameRow;
@@ -559,6 +578,14 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
 
 
         }
+        //creatin dir in internal storage
+        if(ActivityCompat.checkSelfPermission(ChecKAttendanceActivity.this, WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED){
+            createFolder();
+        }
+        else {
+            ActivityCompat.requestPermissions(ChecKAttendanceActivity.this,new String[]{READ_EXTERNAL_STORAGE},100);
+        }
+
 
 
 
@@ -579,6 +606,25 @@ public class ChecKAttendanceActivity extends AppCompatActivity {
             e.printStackTrace();
             Toast.makeText(this, "Failed to Generate Excel", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void createFolder(){
+     File file = new File(Environment.getExternalStorageDirectory(),"RitAttendance");
+
+     if(file.exists()){
+         //put the data
+         Toast.makeText(this, "file already there", Toast.LENGTH_SHORT).show();
+     }
+     else{
+         file.mkdirs();
+         if(file.isDirectory()){
+             Toast.makeText(this, "file created", Toast.LENGTH_SHORT).show();
+         }
+         else{
+             Toast.makeText(this, "problem while creating", Toast.LENGTH_SHORT).show();
+
+         }
+     }
     }
 
 }

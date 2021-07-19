@@ -28,6 +28,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -43,6 +44,7 @@ public class NameListActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     String batch,dept,sec,year,date,sem,hr;
     List<AttendanceModelClass> nameList;
+    List<Integer> prevAttendance;
     TextView dep,sect,hour,semester,datet;
     PutAttendanceAdapter adapter;
     List<Boolean> attendanceStatus;
@@ -53,7 +55,10 @@ public class NameListActivity extends AppCompatActivity {
     ProgressBar progressBar;
     CardView layout;
     FirebaseAuth auth;
-    int count=0,i;
+    //int i1=0;
+    List<Integer> done;
+    int count=0,i,no_of_present,prevattendance;
+    int temp;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +67,12 @@ public class NameListActivity extends AppCompatActivity {
         recyclerView=findViewById(R.id.namelistrecyclerview);
         nameList=new ArrayList<>();
         attendanceStatus=new ArrayList<>();
+
+        done=new ArrayList<>();
+
+        i=0;
+
+        prevAttendance=new ArrayList<>();
 
         dep=findViewById(R.id.namelistdepartment);
         sect=findViewById(R.id.namelistsec);
@@ -121,88 +132,120 @@ public class NameListActivity extends AppCompatActivity {
 //
 //            }
 //        });
+        i=0;
         reference.orderByChild("dep").equalTo(dept)
                 .addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
 
-                    Log.i("start", "called");
-                    nameList = new ArrayList<>();
-                    attendanceStatus = new ArrayList<>();
-                    int i = 0;
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                        Log.i("start", "called");
+                        nameList = new ArrayList<>();
+                        prevAttendance=new ArrayList<>();
+                        done=new ArrayList<>();
+                        attendanceStatus = new ArrayList<>();
+                        int i = 0;
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
-                        if (dataSnapshot.child("sec").getValue(String.class).equals(sec)) {
+                            if (dataSnapshot.child("sec").getValue(String.class).equals(sec)) {
 
-                        //Log.i("checking",dataSnapshot.child("name").getValue(String.class));
+                                //Log.i("checking",dataSnapshot.child("name").getValue(String.class));
 //                    AttendanceModelClass modelClass=new AttendanceModelClass(dataSnapshot.child("name").getValue(String.class),
 //                            dataSnapshot.child("dep").getValue(String.class),
 //                            dataSnapshot.child("sec").getValue(String.class),
 //                            dataSnapshot.child("phno").getValue(String.class),
 //                            dataSnapshot.child("regno").getValue(String.class)
 //                            );
-                        AttendanceModelClass modelClass = dataSnapshot.getValue(AttendanceModelClass.class);
-                        Log.i("heyyy long value", String.valueOf(dataSnapshot.child("phno").getValue()));
-                        Log.i("n000", String.valueOf(i++));
-                        attendanceStatus.add(true);
-                        nameList.add(modelClass);
+                                AttendanceModelClass modelClass = dataSnapshot.getValue(AttendanceModelClass.class);
+                                attendanceStatus.add(true);
+                                nameList.add(modelClass);
+                            }
+
+                        }
+                        if(nameList.size()==0){
+                            Toast.makeText(NameListActivity.this, "NO DATA AVAILABLE", Toast.LENGTH_LONG).show();
+                        }
+                        adapter.setNameList(nameList, attendanceStatus);
+                        recyclerView.setAdapter(adapter);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(NameListActivity.this));
                     }
 
-                }
-                if(nameList.size()==0){
-                    Toast.makeText(NameListActivity.this, "NO DATA AVAILABLE", Toast.LENGTH_LONG).show();
-                }
-                adapter.setNameList(nameList, attendanceStatus);
-                recyclerView.setAdapter(adapter);
-                recyclerView.setLayoutManager(new LinearLayoutManager(NameListActivity.this));
-            }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+                    }
+                });
 
     }
 
     public void upload(View view) {
+        i=0;
+        //int i1;
         firsttime=0;
-       // if(sharedPreferences.getString("first",null)==null) {
+        // if(sharedPreferences.getString("first",null)==null) {
         if(hr.equals("1")) {
             for (i = 0; i <nameList.size();i++){
-
+                no_of_present=getAttendance(String.valueOf(attendanceStatus.get(i)));
                 AttendanceModelClass modelClass=nameList.get(i);
-               AttendanceModelClass attendance=new AttendanceModelClass(modelClass.getRegno(),modelClass.getPhno(),modelClass.getName(),
-                       modelClass.getSec(),sem,dept,year,String.valueOf(attendanceStatus.get(i)),
-                       " "," "," "," "," "," ");
-               firestore.collection(date).document(String.valueOf(modelClass.getRegno())).set(attendance).addOnSuccessListener(new OnSuccessListener<Void>() {
-                   @Override
-                   public void onSuccess(Void unused) {
-                       //Toast.makeText(NameListActivity.this, "Attendance Uploaded", Toast.LENGTH_SHORT).show();
-                        count++;
-                       firsttime++;
-                   }
-               });
-
-
-            }
-            Log.i("heyyy first time","ueeeee");
-
-
-        }
-        else {
-            for (int i = 0; i <nameList.size();i++) {
-
-                AttendanceModelClass modelClass = nameList.get(i);
-                String h = "h" + hr;
-                firestore.collection(date).document(String.valueOf(modelClass.getRegno())).update(h, String.valueOf(attendanceStatus.get(i))).addOnSuccessListener(new OnSuccessListener<Void>() {
+                AttendanceModelClass attendance=new AttendanceModelClass(modelClass.getRegno(),modelClass.getPhno(),modelClass.getName(),
+                        modelClass.getSec(),sem,dept,year,String.valueOf(attendanceStatus.get(i)),
+                        " "," "," "," "," "," ",String.valueOf(no_of_present));
+                firestore.collection(date).document(String.valueOf(modelClass.getRegno())).set(attendance).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
-                    public void onSuccess(Void aVoid) {
+                    public void onSuccess(Void unused) {
+                        count++;
                         firsttime++;
                     }
                 });
             }
+            no_of_present=0;
+            //Log.i("heyyy first time","ueeeee");
+
+
         }
+        else {
+            firestore.collection(date)
+                    .whereEqualTo("dep", dept)
+                    .whereEqualTo("year", year)
+                    .whereEqualTo("sec", sec).
+                    get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                @Override
+                public void onSuccess(QuerySnapshot querySnapshot) {
+                    for (QueryDocumentSnapshot documentSnapshot : querySnapshot) {
+                        int attcount = Integer.parseInt(documentSnapshot.getString("noofpresent"));
+                        //Log.i("checkinggg", documentSnapshot.getString("noofpresent"));
+                        prevAttendance.add(attcount);
+                        Log.i("list prevatt", String.valueOf(prevAttendance.size()));
+                    }
+
+                    for (int i1 = 0; i1 <nameList.size();i1++) {
+                        //int finalI1 = i11;
+                        temp=i1;
+                        //Log.i("value of iiii",""+temp+"  "+i1);
+
+                        AttendanceModelClass modelClass = nameList.get(i1);
+
+                        String h = "h" + hr;
+
+                        int attper=prevAttendance.get(i1)+getAttendance(String.valueOf(attendanceStatus.get(i1)));
+
+                        firestore.collection(date).document(String.valueOf(modelClass.getRegno())).update(h, String.valueOf(attendanceStatus.get(i1)),
+                                "noofpresent", String.valueOf(attper)
+                        ).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                firsttime++;
+                            }
+                        });
+                    }
+                }
+
+            });
+
+
+            //setData(h,modelClass,i1);
+
+        }
+        //i1=0;
         if(nameList.size()==0){
             Toast.makeText(NameListActivity.this, "no data available", Toast.LENGTH_SHORT).show();
         }
@@ -210,29 +253,39 @@ public class NameListActivity extends AppCompatActivity {
             Toast.makeText(NameListActivity.this, "Attendance uploaded", Toast.LENGTH_SHORT).show();
         }
     }
+// menu top
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        getMenuInflater().inflate(R.menu.menu, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        int id = item.getItemId();
+//        if (id == R.id.log_out) {
+//            auth.signOut();
+//            Intent intent=new Intent(getApplicationContext(),Login.class);
+//            SharedPreferences preferences = this.getSharedPreferences("preference", Context.MODE_PRIVATE);
+//            SharedPreferences.Editor editor = preferences.edit();
+//            editor.clear();
+//            editor.apply();
+//            startActivity(intent);
+//            finish();
+//            Toast.makeText(getApplicationContext(), "Logged Out Successfully!", Toast.LENGTH_LONG).show();
+//            return true;
+//        }
+//        return super.onOptionsItemSelected(item);
+//    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-        if (id == R.id.log_out) {
-            auth.signOut();
-            Intent intent=new Intent(getApplicationContext(),Login.class);
-            SharedPreferences preferences = this.getSharedPreferences("preference", Context.MODE_PRIVATE);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.clear();
-            editor.apply();
-            startActivity(intent);
-            finish();
-            Toast.makeText(getApplicationContext(), "Logged Out Successfully!", Toast.LENGTH_LONG).show();
-            return true;
+    public int getAttendance(String s){
+        if(s.equals("true")){
+            Log.i("checkinggg","trueeeee");
+            return 1;
         }
-        return super.onOptionsItemSelected(item);
+        Log.i("checkinggg","falseeeee");
+        return 0;
     }
+
 }

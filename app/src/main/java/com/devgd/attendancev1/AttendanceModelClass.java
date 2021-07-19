@@ -10,6 +10,7 @@ public class AttendanceModelClass {
     String h1,h2,h3,h4,h5,h6,h7;
     String sem,year;
     long phno,rolno,regno;
+    String  noofpresent;
 
     public long getRegno() {
         return regno;
@@ -70,7 +71,16 @@ public class AttendanceModelClass {
         this.year = year;
     }
 
-    public AttendanceModelClass(long regno,long phno,String name, String sec, String sem, String dep, String year, String h1, String h2, String h3, String h4, String h5, String h6, String h7) {
+    public String getNoofpresent() {
+        return noofpresent;
+    }
+
+    public void setNoofpresent(String noofpresent) {
+        this.noofpresent = noofpresent;
+    }
+
+    public AttendanceModelClass(long regno, long phno, String name, String sec, String sem, String dep, String year, String h1, String h2,
+                                String h3, String h4, String h5, String h6, String h7, String noofpresent) {
         this.h1 = h1;
         this.h2 = h2;
         this.h3 = h3;
@@ -85,6 +95,7 @@ public class AttendanceModelClass {
         this.year=year;
         this.regno=regno;
         this.phno=phno;
+        this.noofpresent=noofpresent;
     }
 
     public String getH1() {

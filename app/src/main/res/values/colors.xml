@@ -10,4 +10,7 @@
     <color name="present">#8BC34A</color>
     <color name="absent">#FF6F6F</color>
     <color name="defaultc">#C6C6C6</color>
+    <color name="good">#8BC34A</color>
+    <color name="bad">#FF6F6F</color>
+    <color name="average">#FF9371</color>
 </resources>

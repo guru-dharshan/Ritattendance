@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single"
+
+        >
+        <item
+            android:icon="@drawable/ic_baseline_date_range_24"
+            android:title="Attendance Range"
+            android:id="@+id/AttendanceRange">
+        </item>
+        <item
+            android:icon="@drawable/ic_baseline_person_24"
+            android:title="single Person Attendance"
+            android:id="@+id/AttendanceRollno">
+        </item>
+        <item
+            android:icon="@drawable/ic_baseline_folder_24"
+            android:title="My files"
+            android:id="@+id/Myfile">
+        </item>
+        <item
+            android:icon="@drawable/ic_baseline_login"
+            android:title="Logout"
+            android:id="@+id/Logout">
+        </item>
+
+    </group>
+</menu>

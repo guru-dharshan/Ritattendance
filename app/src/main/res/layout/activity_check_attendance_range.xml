@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CheckAttendanceRange">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="10dp"
+        android:text="27-08-21 to 31-08-21"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:id="@+id/ranceDate"
+        >
+    </TextView>
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_filter"
+        android:layout_gravity="end"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="-45dp"
+        android:id="@+id/filterImage"
+        android:onClick="Filter"
+        >
+    </ImageView>
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_baseline_arrow_circle_down_24"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="-40dp"
+        android:id="@+id/generateExcel"
+
+        android:onClick="generateExcel"
+        >
+    </ImageView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="10dp"
+        android:id="@+id/rangeRecyclerView"
+        tools:listitem="@layout/check_attendance__range"
+        >
+    </androidx.recyclerview.widget.RecyclerView>
+
+</LinearLayout>

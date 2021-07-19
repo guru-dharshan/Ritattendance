@@ -5,4 +5,9 @@
     android:id="@+id/log_out"
     android:icon="@drawable/ic_baseline_login"
     />
+    <item
+        android:title="Attendance Range"
+        android:id="@+id/att_range"
+        android:icon="@drawable/ic_baseline_login"
+        />
 </menu>
